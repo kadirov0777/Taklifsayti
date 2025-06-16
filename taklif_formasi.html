@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Taklif qoldiring</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 40px;">
+    <h2>📩 Taklifingizni yuboring</h2>
+    <form id="suggestion-form" style="background: white; padding: 20px; border-radius: 10px; width: 300px;">
+        <label for="phone">📞 Telefon raqamingiz:</label><br>
+        <input type="text" id="phone" placeholder="+998 XX XXX XX XX" required style="width: 100%; padding: 8px;"><br><br>
+        <label for="message">✍️ Taklif yoki fikr:</label><br>
+        <textarea id="message" placeholder="Taklifingiz..." required style="width: 100%; height: 100px; padding: 8px;"></textarea><br><br>
+        <button type="submit" style="background-color: #007bff; color: white; padding: 10px; width: 100%; border: none; border-radius: 5px;">Yuborish</button>
+    </form>
+
+    <script>
+    const TOKEN = '7934426932:AAFus3Z-yKO0ZCH8sl_lDrJVJH5BMBAUDLQ';
+    const CHAT_ID = '1693554773';
+    document.getElementById('suggestion-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        let phone = document.getElementById('phone').value;
+        let message = document.getElementById('message').value;
+        let text = "📩 Yangi taklif:%0A📱 Telefon: " + encodeURIComponent(phone) + "%0A📝 Xabar: " + encodeURIComponent(message);
+        fetch("https://api.telegram.org/bot" + TOKEN + "/sendMessage?chat_id=" + CHAT_ID + "&text=" + text)
+            .then(() => {
+                alert("Taklifingiz yuborildi. Rahmat!");
+                document.getElementById('suggestion-form').reset();
+            })
+            .catch(() => {
+                alert("Xatolik yuz berdi. Qaytadan urinib ko'ring.");
+            });
+    });
+    </script>
+</body>
+</html>
